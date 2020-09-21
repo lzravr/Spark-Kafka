@@ -1,4 +1,4 @@
-package ex.text.spark
+package controllers
 
 import kafka.serializer.DefaultDecoder
 import org.apache.spark.streaming.StreamingContext

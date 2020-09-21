@@ -15,7 +15,6 @@ object WordCount {
   def countWords(
       ssc: StreamingContext,
       lines: DStream[String],
-      stopWords: Set[String],
       windowDuration: FiniteDuration,
       slideDuration: FiniteDuration
   ): DStream[WordCount] = {
@@ -25,7 +24,6 @@ object WordCount {
 
     val sc = ssc.sparkContext
 
-    val stopWordsVar = sc.broadcast(stopWords)
     val windowDurationVar = sc.broadcast(windowDuration)
     val slideDurationVar = sc.broadcast(slideDuration)
 
@@ -33,7 +31,6 @@ object WordCount {
       .transform(splitLine)
       .transform(skipEmptyWords)
       .transform(toLowerCase)
-      .transform(skipStopWords(stopWordsVar))
 
     val wordCounts = words
       .map(word => (word, 1))
@@ -52,9 +49,6 @@ object WordCount {
 
   def skipEmptyWords: RDD[String] => RDD[String] =
     (words: RDD[String]) => words.filter(word => !word.isEmpty)
-
-  def skipStopWords: Broadcast[Set[String]] => RDD[String] => RDD[String] =
-    (stopWords: Broadcast[Set[String]]) => (words: RDD[String]) => words.filter(word => !stopWords.value.contains(word))
 
   def skipEmptyWordCounts: RDD[(String, Int)] => RDD[(String, Int)] =
     (wordCounts: RDD[WordCount]) => wordCounts.filter(wordCount => wordCount._2 > 0)

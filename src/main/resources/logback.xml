@@ -6,7 +6,7 @@
   </appender>
 
   <logger name="example" level="DEBUG"/>
-  <logger name="ex.text.spark" level="DEBUG"/>
+  <logger name="controllers" level="DEBUG"/>
 
   <logger name="kafka" level="WARN"/>
   <logger name="org.apache.kafka" level="WARN"/>

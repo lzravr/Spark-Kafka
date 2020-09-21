@@ -1,4 +1,4 @@
-package ex.text.spark
+package controllers
 
 import scala.util.Failure
 import scala.util.Success

@@ -3,7 +3,7 @@ package example
 import scala.concurrent.duration.FiniteDuration
 
 import org.apache.spark.storage.StorageLevel
-import ex.text.spark._
+import controllers._
 
 class WordCountJob(config: WordCountJobConfig, source: KafkaDStreamSource) extends SparkStreamingApplication {
 
@@ -23,7 +23,6 @@ class WordCountJob(config: WordCountJobConfig, source: KafkaDStreamSource) exten
       val countedWords = WordCount.countWords(
         ssc,
         lines,
-        config.stopWords,
         config.windowDuration,
         config.slideDuration
       )
@@ -55,7 +54,6 @@ object WordCountJob {
 case class WordCountJobConfig(
     inputTopic: String,
     outputTopic: String,
-    stopWords: Set[String],
     windowDuration: FiniteDuration,
     slideDuration: FiniteDuration,
     spark: Map[String, String],
@@ -80,7 +78,6 @@ object WordCountJobConfig {
     new WordCountJobConfig(
       config.as[String]("input.topic"),
       config.as[String]("output.topic"),
-      config.as[Set[String]]("stopWords"),
       config.as[FiniteDuration]("windowDuration"),
       config.as[FiniteDuration]("slideDuration"),
       config.as[Map[String, String]]("spark"),

@@ -1,4 +1,4 @@
-package ex.text.spark
+package controllers
 
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
