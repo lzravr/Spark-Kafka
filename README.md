@@ -104,4 +104,4 @@ sbt "runMain example.WordCountJob"
 
 Komandu izvršiti iz korenog direktorijuma projekta.
 
-Umesto ili pored koraka broj 5, radi testiranja, moguće je koristiti i *python* skriptu *kafka_producer.py* iz preuzetog primera. Skripta nasumično generiše rečenice i upisuje ih u ulaznu temu (*input*).
+Umesto ili pored koraka broj 5, radi testiranja, moguće je koristiti i *python* skriptu *kafka_producer.py* iz preuzetog primera. Skripta generiše nasumične rečenice i upisuje ih u ulaznu temu (*input*).
